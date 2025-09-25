@@ -80,10 +80,10 @@ cli_tools_installation ()
     sudo pacman -Syy --noconfirm android-tools
     sudo pacman -Syy --noconfirm docker docker-compose
     sudo systemctl enable docker.socket
-    sudo btrfs subvolume create /var/lib/docker
-    sudo mkdir /etc/docker
-    sudo touch /etc/docker/daemon.json
-    sudo echo -e '{\n"storage-driver": "btrfs"\n}' | sudo tee -a /etc/docker/daemon.json
+    # sudo btrfs subvolume create /var/lib/docker
+    # sudo mkdir /etc/docker
+    # sudo touch /etc/docker/daemon.json
+    # sudo echo -e '{\n"storage-driver": "btrfs"\n}' | sudo tee -a /etc/docker/daemon.json
 }
 
 driver_installation ()
