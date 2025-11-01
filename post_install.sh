@@ -94,7 +94,7 @@ driver_installation ()
     sudo pacman -Syy --noconfirm vulkan-intel
     sudo pacman -Syy --noconfirm vulkan-mesa-layers
     sudo pacman -Syy --noconfirm vulkan-radeon
-    sudo pacman -Syy --noconfirm amdvlk
+    # sudo pacman -Syy --noconfirm amdvlk
     sudo pacman -Syy --noconfirm xf86-video-amdgpu
     sudo pacman -Syy --noconfirm xf86-video-ati
 }
