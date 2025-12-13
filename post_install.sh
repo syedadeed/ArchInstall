@@ -58,22 +58,25 @@ gui_setup ()
 {
     sudo pacman -Syy --noconfirm hyprland
     sudo pacman -Syy --noconfirm xdg-desktop-portal-hyprland
-    sudo pacman -Syy --noconfirm swww
+    #sudo pacman -Syy --noconfirm swww
     sudo pacman -Syy --noconfirm grim
     sudo pacman -Syy --noconfirm slurp
     sudo pacman -Syy --noconfirm hyprpicker
     sudo pacman -Syy --noconfirm wl-clipboard
     sudo pacman -Syy --noconfirm brightnessctl
+    sudo pacman -Syy --noconfirm playerctl
 }
 
 cli_tools_installation ()
 {
     sudo pacman -Syy --noconfirm bash-completion btop tree
+    sudo pacman -Syy --noconfirm yazi
     sudo pacman -Syy --noconfirm man-db man-pages
     sudo pacman -Syy --noconfirm git github-cli
     sudo pacman -Syy --noconfirm neovim unzip
     sudo pacman -Syy --noconfirm npm
     sudo pacman -Syy --noconfirm go
+    sudo pacman -Syy --noconfirm nasm
     sudo pacman -Syy --noconfirm python-virtualenv python-pip tk
     sudo pacman -Syy --noconfirm luarocks
     sudo pacman -Syy --noconfirm gdb meson cmake
@@ -102,7 +105,7 @@ driver_installation ()
 gui_apps_installation ()
 {
     sudo pacman -Syy --noconfirm kitty
-    sudo pacman -Syy --noconfirm zen-browser-bin
+    sudo pacman -Syy --noconfirm brave-bin
     sudo pacman -Syy --noconfirm mpv
 }
 
