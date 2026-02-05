@@ -29,6 +29,15 @@ chaotic_aur_setup()
     sudo pacman -Syyu --noconfirm
 }
 
+vpn_setup()
+{
+    #make sure the wg0.conf file doesnt have a dns entry and AllowedIPs should just be 0.0.0.0/0
+    sudo pacman -Syy --noconfirm wireguard-tools
+    sudo mkdir -p /etc/wireguard
+    sudo touch /etc/wireguard/wg0.conf
+    sudo chmod 600 /etc/wireguard/wg0.conf
+}
+
 audio_setup ()
 {
     sudo pacman -Syy --noconfirm pipewire
@@ -112,6 +121,7 @@ gui_apps_installation ()
 configure_wifi
 update_hostname
 chaotic_aur_setup
+vpn_setup
 audio_setup
 bluetooth_setup
 font_installation
