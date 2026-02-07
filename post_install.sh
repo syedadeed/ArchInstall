@@ -34,8 +34,17 @@ vpn_setup()
     #make sure the wg0.conf file doesnt have a dns entry and AllowedIPs should just be 0.0.0.0/0
     sudo pacman -Syy --noconfirm wireguard-tools
     sudo mkdir -p /etc/wireguard
-    sudo touch /etc/wireguard/wg0.conf
+    server_private_key="$(wg genkey)"
+    server_public_key="$(wg pubkey <<< "${server_private_key}")"
+    client_private_key="$(wg genkey)"
+    client_public_key="$(wg pubkey <<< "${client_private_key}")"
+    domain_name="accio.cognus.cl"
+    interface="wlp0s20u1"
+    echo -e "[Interface]\nAddress = 10.0.0.1/8\nPostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o "${interface}" -j MASQUERADE;\nPostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o "${interface}" -j MASQUERADE;\nListenPort = 51820\nPrivateKey = "${server_private_key}"\n\n[Peer]\nPublicKey = "${client_public_key}"\nAllowedIPs = 10.0.0.2/32" | sudo tee /etc/wireguard/wg0.conf
+    echo -e "[Interface]\nAddress = 10.0.0.2/32\nDNS = 8.8.8.8\nPrivateKey = "${client_private_key}"\n\n[Peer]\nPublicKey = "${server_public_key}"\nEndpoint = "${domain_name}":51820\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25" > client.conf
     sudo chmod 600 /etc/wireguard/wg0.conf
+    sudo touch /etc/wireguard/wg1.conf
+    sudo chmod 600 /etc/wireguard/wg1.conf
 }
 
 audio_setup ()
