@@ -86,7 +86,7 @@ cli_tools_installation ()
     sudo pacman -Syy --noconfirm gdb meson cmake
     sudo pacman -Syy --noconfirm android-tools
     sudo pacman -Syy --noconfirm docker docker-compose
-    sudo systemctl enable docker.socket
+    sudo systemctl enable --now docker.socket
     sudo usermod -aG docker $USER
 }
 
@@ -119,14 +119,14 @@ gui_apps_installation ()
 
 virtualization_setup ()
 {
-    sudo pacman -Syy --noconfirm qemu-base qemu-system-aarch64
+    sudo pacman -Syy --noconfirm qemu-full
     sudo usermod -aG kvm $USER
-    sudo pacman -Syy --noconfirm libvirt virt-install
-    pacman -Ql libvirt | grep '\.socket' | awk '{print $2}' | xargs -I{} basename {} | grep '^virt' | xargs sudo systemctl enable --now
+    sudo pacman -Syy --noconfirm virt-manager
+    sudo systemctl enable --now libvirtd.socket
     sudo usermod -aG libvirt $USER
     yes | sudo pacman -Syy iptables-nft
-    pacman -Syy --noconfirm dnsmasq
-    pacman -Syy --noconfirm bridge-utils
+    sudo pacman -Syy --noconfirm dnsmasq
+    sudo pacman -Syy --noconfirm bridge-utils
 }
 
 secure_boot_setup ()
