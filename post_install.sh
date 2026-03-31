@@ -143,6 +143,12 @@ disk_maintenance ()
     sudo systemctl enable fstrim.timer
 }
 
+hibernate_setup ()
+{
+    echo -e "HibernateMode=shutdown\nHibernateDelaySec=2h" | sudo tee -a /etc/systemd/sleep.conf
+    echo -e "HandleLidSwitch=suspend-then-hibernate" | sudo tee -a /etc/systemd/logind.conf
+}
+
 vpn_setup ()
 {
     #make sure the wg0.conf file doesnt have a dns entry and AllowedIPs should just be 0.0.0.0/0
@@ -174,6 +180,7 @@ gui_apps_installation
 virtualization_setup
 secure_boot_setup
 disk_maintenance
+hibernate_setup
 #vpn_setup
 
 #Bibata cursor theme
