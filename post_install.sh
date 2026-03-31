@@ -61,6 +61,7 @@ gui_setup ()
 {
     sudo pacman -Syy --noconfirm hyprland
     sudo pacman -Syy --noconfirm xdg-desktop-portal-hyprland
+    # sudo pacman -Syy --noconfirm swww
     sudo pacman -Syy --noconfirm grim
     sudo pacman -Syy --noconfirm slurp
     sudo pacman -Syy --noconfirm hyprpicker
@@ -75,19 +76,21 @@ cli_tools_installation ()
     sudo pacman -Syy --noconfirm bash-completion btop tree
     sudo pacman -Syy --noconfirm yazi
     sudo pacman -Syy --noconfirm man-db man-pages
+    sudo pacman -Syy --noconfirm certbot
     sudo pacman -Syy --noconfirm git github-cli
     sudo pacman -Syy --noconfirm neovim unzip
     sudo pacman -Syy --noconfirm npm
     sudo pacman -Syy --noconfirm go
     sudo pacman -Syy --noconfirm gradle maven
-    sudo pacman -Syy --noconfirm nasm
-    sudo pacman -Syy --noconfirm python-virtualenv python-pip tk
+    sudo pacman -Syy --noconfirm nasm emscripten
+    sudo pacman -Syy --noconfirm python-virtualenv python-pip tk check-jsonschema
     sudo pacman -Syy --noconfirm luarocks
-    sudo pacman -Syy --noconfirm gdb meson cmake
+    sudo pacman -Syy --noconfirm gdb meson cmake clang
     sudo pacman -Syy --noconfirm android-tools
-    sudo pacman -Syy --noconfirm docker docker-compose
+    sudo pacman -Syy --noconfirm docker docker-buildx docker-compose
     sudo systemctl enable --now docker.socket
     sudo usermod -aG docker $USER
+    sudo pacman -Syy --noconfirm kubectl talosctl
 }
 
 driver_installation ()
@@ -107,14 +110,14 @@ gui_apps_installation ()
 {
     sudo pacman -Syy --noconfirm kitty
     sudo pacman -Syy --noconfirm brave-bin
-    sudo pacman -Syy --noconfirm mpv
-    paru -Syy --noconfirm beekeeper-studio-bin
-    echo -e "--ozone-platform-hint=auto\n--enable-features=UseOzonePlatform" > ~/.config/bks-flags.conf
-    mkdir -p ~/.config/beekeeper-studio
-    echo -e '{"data":"eyJsaWNlbnNlX2tleSI6eyJ2YWxpZF91bnRpbCI6IjIwOTktMDEtMDFUMDY6MDA6MDAuMDAwWiIsInN1cHBvcnRfdW50aWwiOiIyMDk5LTAxLTAxVDA2OjAwOjAwLjAwMFoiLCJjdXN0b21lcl9zdXBwb3J0X3VudGlsIjoiMjA5OS0wMS0wMVQwNjowMDowMC4wMDBaIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDEtMDFUMDA6MDA6MDAuMDAwWiIsImxpY2Vuc2VfdHlwZSI6IlBlcnNvbmFsTGljZW5zZSIsImVtYWlsIjoicGVudGVzdEBleGFtcGxlLmNvbSIsImlkIjoxLCJrZXkiOiJhYWFhYWFhYS1iYmJiLWNjY2MtZGRkZC1lZWVlZWVlZWVlZWUiLCJzdWJzY3JpcHRpb24iOmZhbHNlLCJtYXhfYWxsb3dlZF9hcHBfcmVsZWFzZSI6bnVsbH0sImVycm9ycyI6bnVsbCwic3RhdHVzIjoyMDB9Cg==","signature":"FdIcSnF8Gv4oQnoOZs2NxTAzo73Vl7hemeraKtdJWq8hgRthNLgBqQMLUmyLUV8gjNjmlXWOK3362cLwRkb4csx3Fmk+OaAhyB0qp/jYNrm4bQ4D5EC+bWbmwTDGXP+vdbPyEDP85ZRuZINuSqnD+8huN7kdc38OHQNNY3w9hp99VpNrEWNIMeGsvF93t+0ljjPV2pSLXPeXZ6XkjwUZT1t7NuY/A/vIz7neVr4KO9uMoL/l83x/99Yt55sSs5xSUmjeodSs2FXOznlF6zCQbajiTuhxhh+8MfY0BDjCvpwP3fzw/Pn4eR7XJmVnulNV9Pdm1pRfUJi3EGr7Q7CIdQ=="}' > ~/.config/beekeeper-studio/license.json
-    mkdir -p /opt/Beekeeper\ Studio/resources
-    echo -e "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAar3l0A2NSUfCXpF/UU\nK+CsT9l0bScqT5VtoQYwA6QkmGz0Zhe+YW3qIRlDMTXsRGgx5oWdpDG64RL9Dy1t\nNAeimJ6//mOcuAUWQzxo4bHRcdBgKxq/5xeTRqGJCP1KXFiRtQeFpKcVDMS5bu6K\nLSILaEo+UzKPQu+/O055NNivUcqE7aerjzI6Tab/5aeo2nBCYBZVQoe8j2MW1bwt\nuTbvjWXXrZLCk7VibcVNMT5fSSaWQG8tggiTCaoNHSMNQfjrEuqfdCHmMjH3PR1O\nLeiLmRYY2YtfHiaBwpa1wLrzLn4w72mMponvmK4QWj4I5pAqyWvUf6jDj5i3lDAQ\nGQIDAQAB\n-----END PUBLIC KEY-----" | sudo tee /opt/Beekeeper\ Studio/resources/production_pub.pem
-    paru -Syy --noconfirm insomnia-bin
+    # sudo pacman -Syy --noconfirm mpv
+    # paru -Syy --noconfirm beekeeper-studio-bin
+    # echo -e "--ozone-platform-hint=auto\n--enable-features=UseOzonePlatform" > ~/.config/bks-flags.conf
+    # mkdir -p ~/.config/beekeeper-studio
+    # echo -e '{"data":"eyJsaWNlbnNlX2tleSI6eyJ2YWxpZF91bnRpbCI6IjIwOTktMDEtMDFUMDY6MDA6MDAuMDAwWiIsInN1cHBvcnRfdW50aWwiOiIyMDk5LTAxLTAxVDA2OjAwOjAwLjAwMFoiLCJjdXN0b21lcl9zdXBwb3J0X3VudGlsIjoiMjA5OS0wMS0wMVQwNjowMDowMC4wMDBaIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDEtMDFUMDA6MDA6MDAuMDAwWiIsImxpY2Vuc2VfdHlwZSI6IlBlcnNvbmFsTGljZW5zZSIsImVtYWlsIjoicGVudGVzdEBleGFtcGxlLmNvbSIsImlkIjoxLCJrZXkiOiJhYWFhYWFhYS1iYmJiLWNjY2MtZGRkZC1lZWVlZWVlZWVlZWUiLCJzdWJzY3JpcHRpb24iOmZhbHNlLCJtYXhfYWxsb3dlZF9hcHBfcmVsZWFzZSI6bnVsbH0sImVycm9ycyI6bnVsbCwic3RhdHVzIjoyMDB9Cg==","signature":"FdIcSnF8Gv4oQnoOZs2NxTAzo73Vl7hemeraKtdJWq8hgRthNLgBqQMLUmyLUV8gjNjmlXWOK3362cLwRkb4csx3Fmk+OaAhyB0qp/jYNrm4bQ4D5EC+bWbmwTDGXP+vdbPyEDP85ZRuZINuSqnD+8huN7kdc38OHQNNY3w9hp99VpNrEWNIMeGsvF93t+0ljjPV2pSLXPeXZ6XkjwUZT1t7NuY/A/vIz7neVr4KO9uMoL/l83x/99Yt55sSs5xSUmjeodSs2FXOznlF6zCQbajiTuhxhh+8MfY0BDjCvpwP3fzw/Pn4eR7XJmVnulNV9Pdm1pRfUJi3EGr7Q7CIdQ=="}' > ~/.config/beekeeper-studio/license.json
+    # mkdir -p /opt/Beekeeper\ Studio/resources
+    # echo -e "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAar3l0A2NSUfCXpF/UU\nK+CsT9l0bScqT5VtoQYwA6QkmGz0Zhe+YW3qIRlDMTXsRGgx5oWdpDG64RL9Dy1t\nNAeimJ6//mOcuAUWQzxo4bHRcdBgKxq/5xeTRqGJCP1KXFiRtQeFpKcVDMS5bu6K\nLSILaEo+UzKPQu+/O055NNivUcqE7aerjzI6Tab/5aeo2nBCYBZVQoe8j2MW1bwt\nuTbvjWXXrZLCk7VibcVNMT5fSSaWQG8tggiTCaoNHSMNQfjrEuqfdCHmMjH3PR1O\nLeiLmRYY2YtfHiaBwpa1wLrzLn4w72mMponvmK4QWj4I5pAqyWvUf6jDj5i3lDAQ\nGQIDAQAB\n-----END PUBLIC KEY-----" | sudo tee /opt/Beekeeper\ Studio/resources/production_pub.pem
+    # paru -Syy --noconfirm insomnia-bin
 }
 
 virtualization_setup ()
