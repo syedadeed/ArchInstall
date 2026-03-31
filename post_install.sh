@@ -78,7 +78,8 @@ cli_tools_installation ()
     sudo pacman -S --noconfirm man-db man-pages
     sudo pacman -S --noconfirm certbot
     sudo pacman -S --noconfirm git github-cli
-    sudo pacman -S --noconfirm neovim zip unzip
+    #TODO remove tree-sitter-cli in future when neovim pkg updates to 0.12
+    sudo pacman -S --noconfirm neovim tree-sitter-cli zip unzip
     sudo pacman -S --noconfirm npm
     sudo pacman -S --noconfirm go
     sudo pacman -S --noconfirm gradle maven
