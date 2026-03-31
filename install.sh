@@ -90,7 +90,7 @@ configure_system(){
     read rp
     echo -e "${rp}\n${rp}\n" | arch-chroot /mnt passwd
 
-    #Creating user(adeed)
+    #Creating user
     echo "Enter username: "
     read username
     arch-chroot /mnt useradd -m -G wheel $username

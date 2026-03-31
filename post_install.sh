@@ -29,112 +29,108 @@ chaotic_aur_setup ()
     sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
     echo -e "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
     sudo pacman -Syyu --noconfirm
-    sudo pacman -Syy --noconfirm paru
+    sudo pacman -S --noconfirm paru
 }
 
 audio_setup ()
 {
-    sudo pacman -Syy --noconfirm pipewire
+    sudo pacman -S --noconfirm pipewire
     systemctl --user enable pipewire.service
-    sudo pacman -Syy --noconfirm pipewire-alsa
-    sudo pacman -Syy --noconfirm pipewire-jack
-    sudo pacman -Syy --noconfirm pipewire-pulse
+    sudo pacman -S --noconfirm pipewire-alsa
+    sudo pacman -S --noconfirm pipewire-jack
+    sudo pacman -S --noconfirm pipewire-pulse
     systemctl --user enable pipewire-pulse.service
 }
 
 bluetooth_setup ()
 {
-    sudo pacman -Syy --noconfirm bluez
-    sudo pacman -Syy --noconfirm bluez-utils
+    sudo pacman -S --noconfirm bluez
+    sudo pacman -S --noconfirm bluez-utils
     sudo systemctl enable bluetooth.service
 }
 
 font_installation ()
 {
-    sudo pacman -Syy --noconfirm noto-fonts
-    sudo pacman -Syy --noconfirm noto-fonts-cjk
-    sudo pacman -Syy --noconfirm noto-fonts-extra
-    sudo pacman -Syy --noconfirm noto-fonts-emoji
+    sudo pacman -S --noconfirm noto-fonts
+    sudo pacman -S --noconfirm noto-fonts-cjk
+    sudo pacman -S --noconfirm noto-fonts-extra
+    sudo pacman -S --noconfirm noto-fonts-emoji
 }
 
 gui_setup ()
 {
-    sudo pacman -Syy --noconfirm hyprland
-    sudo pacman -Syy --noconfirm xdg-desktop-portal-hyprland
-    # sudo pacman -Syy --noconfirm swww
-    sudo pacman -Syy --noconfirm grim
-    sudo pacman -Syy --noconfirm slurp
-    sudo pacman -Syy --noconfirm hyprpicker
-    sudo pacman -Syy --noconfirm wl-clipboard
-    sudo pacman -Syy --noconfirm brightnessctl
-    sudo pacman -Syy --noconfirm playerctl
+    sudo pacman -S --noconfirm hyprland
+    sudo pacman -S --noconfirm xdg-desktop-portal-hyprland
+    # sudo pacman -S --noconfirm swww
+    sudo pacman -S --noconfirm grim
+    sudo pacman -S --noconfirm slurp
+    sudo pacman -S --noconfirm hyprpicker
+    sudo pacman -S --noconfirm wl-clipboard
+    sudo pacman -S --noconfirm brightnessctl
+    sudo pacman -S --noconfirm playerctl
     paru -S --noconfirm xremap-hypr-bin
 }
 
 cli_tools_installation ()
 {
-    sudo pacman -Syy --noconfirm bash-completion btop tree
-    sudo pacman -Syy --noconfirm yazi
-    sudo pacman -Syy --noconfirm man-db man-pages
-    sudo pacman -Syy --noconfirm certbot
-    sudo pacman -Syy --noconfirm git github-cli
-    sudo pacman -Syy --noconfirm neovim unzip
-    sudo pacman -Syy --noconfirm npm
-    sudo pacman -Syy --noconfirm go
-    sudo pacman -Syy --noconfirm gradle maven
-    sudo pacman -Syy --noconfirm nasm emscripten
-    sudo pacman -Syy --noconfirm python-virtualenv python-pip tk check-jsonschema
-    sudo pacman -Syy --noconfirm luarocks
-    sudo pacman -Syy --noconfirm gdb meson cmake clang
-    sudo pacman -Syy --noconfirm android-tools
-    sudo pacman -Syy --noconfirm docker docker-buildx docker-compose
+    sudo pacman -S --noconfirm bash-completion btop tree
+    sudo pacman -S --noconfirm yazi
+    sudo pacman -S --noconfirm man-db man-pages
+    sudo pacman -S --noconfirm certbot
+    sudo pacman -S --noconfirm git github-cli
+    sudo pacman -S --noconfirm neovim zip unzip
+    sudo pacman -S --noconfirm npm
+    sudo pacman -S --noconfirm go
+    sudo pacman -S --noconfirm gradle maven
+    sudo pacman -S --noconfirm nasm emscripten
+    sudo pacman -S --noconfirm python-virtualenv python-pip tk check-jsonschema
+    sudo pacman -S --noconfirm gdb meson cmake clang
+    sudo pacman -S --noconfirm android-tools
+    sudo pacman -S --noconfirm docker docker-buildx docker-compose
     sudo systemctl enable --now docker.socket
     sudo usermod -aG docker $USER
-    sudo pacman -Syy --noconfirm kubectl talosctl
+    sudo pacman -S --noconfirm kubectl talosctl
 }
 
 driver_installation ()
 {
-    sudo pacman -Syy --noconfirm intel-ucode
-    sudo pacman -Syy --noconfirm intel-media-driver
-    sudo pacman -Syy --noconfirm libva-intel-driver
-    sudo pacman -Syy --noconfirm vulkan-intel
-    sudo pacman -Syy --noconfirm vulkan-mesa-layers
-    sudo pacman -Syy --noconfirm vulkan-radeon
-    #sudo pacman -Syy --noconfirm amdvlk
-    sudo pacman -Syy --noconfirm xf86-video-amdgpu
-    sudo pacman -Syy --noconfirm xf86-video-ati
+    sudo pacman -S --noconfirm intel-ucode
+    sudo pacman -S --noconfirm intel-media-driver
+    sudo pacman -S --noconfirm libva-intel-driver
+    sudo pacman -S --noconfirm vulkan-intel
+    sudo pacman -S --noconfirm vulkan-radeon
 }
 
 gui_apps_installation ()
 {
-    sudo pacman -Syy --noconfirm kitty
-    sudo pacman -Syy --noconfirm brave-bin
-    # sudo pacman -Syy --noconfirm mpv
-    # paru -Syy --noconfirm beekeeper-studio-bin
+    sudo pacman -S --noconfirm kitty
+    sudo pacman -S --noconfirm mpv
+    sudo pacman -S --noconfirm brave-bin
+    # paru -S --noconfirm beekeeper-studio-bin
     # echo -e "--ozone-platform-hint=auto\n--enable-features=UseOzonePlatform" > ~/.config/bks-flags.conf
     # mkdir -p ~/.config/beekeeper-studio
     # echo -e '{"data":"eyJsaWNlbnNlX2tleSI6eyJ2YWxpZF91bnRpbCI6IjIwOTktMDEtMDFUMDY6MDA6MDAuMDAwWiIsInN1cHBvcnRfdW50aWwiOiIyMDk5LTAxLTAxVDA2OjAwOjAwLjAwMFoiLCJjdXN0b21lcl9zdXBwb3J0X3VudGlsIjoiMjA5OS0wMS0wMVQwNjowMDowMC4wMDBaIiwiY3JlYXRlZF9hdCI6IjIwMjQtMDEtMDFUMDA6MDA6MDAuMDAwWiIsImxpY2Vuc2VfdHlwZSI6IlBlcnNvbmFsTGljZW5zZSIsImVtYWlsIjoicGVudGVzdEBleGFtcGxlLmNvbSIsImlkIjoxLCJrZXkiOiJhYWFhYWFhYS1iYmJiLWNjY2MtZGRkZC1lZWVlZWVlZWVlZWUiLCJzdWJzY3JpcHRpb24iOmZhbHNlLCJtYXhfYWxsb3dlZF9hcHBfcmVsZWFzZSI6bnVsbH0sImVycm9ycyI6bnVsbCwic3RhdHVzIjoyMDB9Cg==","signature":"FdIcSnF8Gv4oQnoOZs2NxTAzo73Vl7hemeraKtdJWq8hgRthNLgBqQMLUmyLUV8gjNjmlXWOK3362cLwRkb4csx3Fmk+OaAhyB0qp/jYNrm4bQ4D5EC+bWbmwTDGXP+vdbPyEDP85ZRuZINuSqnD+8huN7kdc38OHQNNY3w9hp99VpNrEWNIMeGsvF93t+0ljjPV2pSLXPeXZ6XkjwUZT1t7NuY/A/vIz7neVr4KO9uMoL/l83x/99Yt55sSs5xSUmjeodSs2FXOznlF6zCQbajiTuhxhh+8MfY0BDjCvpwP3fzw/Pn4eR7XJmVnulNV9Pdm1pRfUJi3EGr7Q7CIdQ=="}' > ~/.config/beekeeper-studio/license.json
     # mkdir -p /opt/Beekeeper\ Studio/resources
     # echo -e "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyAar3l0A2NSUfCXpF/UU\nK+CsT9l0bScqT5VtoQYwA6QkmGz0Zhe+YW3qIRlDMTXsRGgx5oWdpDG64RL9Dy1t\nNAeimJ6//mOcuAUWQzxo4bHRcdBgKxq/5xeTRqGJCP1KXFiRtQeFpKcVDMS5bu6K\nLSILaEo+UzKPQu+/O055NNivUcqE7aerjzI6Tab/5aeo2nBCYBZVQoe8j2MW1bwt\nuTbvjWXXrZLCk7VibcVNMT5fSSaWQG8tggiTCaoNHSMNQfjrEuqfdCHmMjH3PR1O\nLeiLmRYY2YtfHiaBwpa1wLrzLn4w72mMponvmK4QWj4I5pAqyWvUf6jDj5i3lDAQ\nGQIDAQAB\n-----END PUBLIC KEY-----" | sudo tee /opt/Beekeeper\ Studio/resources/production_pub.pem
-    # paru -Syy --noconfirm insomnia-bin
+    # paru -S --noconfirm insomnia-bin
 }
 
 virtualization_setup ()
 {
-    sudo pacman -Syy --noconfirm qemu-full
+    sudo pacman -S --noconfirm qemu-full
     sudo usermod -aG kvm $USER
-    sudo pacman -Syy --noconfirm virt-manager
+    sudo pacman -S --noconfirm virt-manager
     sudo systemctl enable --now libvirtd.socket
     sudo usermod -aG libvirt $USER
-    yes | sudo pacman -Syy iptables-nft
-    sudo pacman -Syy --noconfirm dnsmasq
-    sudo pacman -Syy --noconfirm bridge-utils
+    yes | sudo pacman -S iptables-nft
+    sudo pacman -S --noconfirm dnsmasq
+    sudo pacman -S --noconfirm bridge-utils
+    virsh net-autostart default
 }
 
 secure_boot_setup ()
 {
-    sudo pacman -Syy --noconfirm sbctl
+    sudo pacman -S --noconfirm sbctl
     sudo sbctl create-keys
     sudo sbctl enroll-keys -m
     sudo sbctl sign -s /efi/EFI/Linux/arch-linux.efi
@@ -148,7 +144,7 @@ disk_maintenance ()
 vpn_setup ()
 {
     #make sure the wg0.conf file doesnt have a dns entry and AllowedIPs should just be 0.0.0.0/0
-    sudo pacman -Syy --noconfirm wireguard-tools
+    sudo pacman -S --noconfirm wireguard-tools
     sudo mkdir -p /etc/wireguard
     server_private_key="$(wg genkey)"
     server_public_key="$(wg pubkey <<< "${server_private_key}")"
