@@ -73,7 +73,7 @@ gui_setup ()
 
 cli_tools_installation ()
 {
-    sudo pacman -S --noconfirm bash-completion btop tree
+    sudo pacman -S --noconfirm bash-completion btop tree jq
     sudo pacman -S --noconfirm yazi
     sudo pacman -S --noconfirm man-db man-pages
     sudo pacman -S --noconfirm certbot
