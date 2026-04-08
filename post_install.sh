@@ -78,8 +78,7 @@ cli_tools_installation ()
     sudo pacman -S --noconfirm man-db man-pages
     sudo pacman -S --noconfirm certbot
     sudo pacman -S --noconfirm git github-cli
-    #TODO remove tree-sitter-cli in future when neovim pkg updates to 0.12
-    sudo pacman -S --noconfirm neovim tree-sitter-cli zip unzip
+    sudo pacman -S --noconfirm neovim zip unzip
     sudo pacman -S --noconfirm opencode
     sudo pacman -S --noconfirm npm
     sudo pacman -S --noconfirm go
@@ -124,7 +123,6 @@ virtualization_setup ()
     sudo pacman -S --noconfirm virt-manager
     sudo systemctl enable --now libvirtd.socket
     sudo usermod -aG libvirt $USER
-    yes | sudo pacman -S iptables-nft
     sudo pacman -S --noconfirm dnsmasq
     sudo pacman -S --noconfirm bridge-utils
     virsh net-autostart default
