@@ -66,6 +66,7 @@ gui_setup ()
     sudo pacman -S --noconfirm slurp
     sudo pacman -S --noconfirm hyprpicker
     sudo pacman -S --noconfirm wl-clipboard
+    sudo pacman -S --noconfirm wtype
     sudo pacman -S --noconfirm brightnessctl
     sudo pacman -S --noconfirm playerctl
     paru -S --noconfirm xremap-hypr-bin
