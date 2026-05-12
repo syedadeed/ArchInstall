@@ -62,6 +62,7 @@ gui_setup ()
     sudo pacman -S --noconfirm hyprland
     sudo pacman -S --noconfirm xdg-desktop-portal-hyprland
     sudo pacman -S --noconfirm hyprpolkitagent
+    sudo pacman -S --noconfirm qt5-wayland qt6-wayland
     sudo pacman -S --noconfirm grim
     sudo pacman -S --noconfirm slurp
     sudo pacman -S --noconfirm hyprpicker
