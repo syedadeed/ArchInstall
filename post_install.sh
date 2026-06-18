@@ -59,9 +59,11 @@ font_installation ()
 
 gui_setup ()
 {
+    sudo pacman -S --noconfirm uwsm
     sudo pacman -S --noconfirm hyprland
     sudo pacman -S --noconfirm xdg-desktop-portal-hyprland
     sudo pacman -S --noconfirm hyprpolkitagent
+    systemctl --user enable hyprpolkitagent.service
     sudo pacman -S --noconfirm qt5-wayland qt6-wayland
     sudo pacman -S --noconfirm grim
     sudo pacman -S --noconfirm slurp
@@ -71,6 +73,8 @@ gui_setup ()
     sudo pacman -S --noconfirm brightnessctl
     sudo pacman -S --noconfirm playerctl
     paru -S --noconfirm xremap-hypr-bin
+    sudo gpasswd -a $USER input
+    echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess", MODE:="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-input.rules
 }
 
 cli_tools_installation ()
