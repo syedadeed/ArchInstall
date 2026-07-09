@@ -83,14 +83,14 @@ cli_tools_installation ()
     sudo pacman -S --noconfirm yazi
     sudo pacman -S --noconfirm man-db man-pages
     sudo pacman -S --noconfirm certbot
-    sudo pacman -S --noconfirm git github-cli
+    sudo pacman -S --noconfirm git github-cli jujutsu
     sudo pacman -S --noconfirm neovim zip unzip
     sudo pacman -S --noconfirm opencode
     sudo pacman -S --noconfirm npm
     sudo pacman -S --noconfirm go
     sudo pacman -S --noconfirm gradle maven
     sudo pacman -S --noconfirm nasm emscripten
-    sudo pacman -S --noconfirm python-virtualenv python-pip tk check-jsonschema
+    sudo pacman -S --noconfirm uv tk check-jsonschema
     sudo pacman -S --noconfirm gdb meson cmake clang
     sudo pacman -S --noconfirm android-tools
     sudo pacman -S --noconfirm docker docker-buildx docker-compose
