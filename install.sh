@@ -1,10 +1,11 @@
 #!/bin/bash
+set -euo pipefail
 
 pre_setup(){
     timedatectl set-timezone Asia/Kolkata
     timedatectl set-ntp true
     timedatectl
-    # reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist -c India --download-timeout 50
+    reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --download-timeout 50
     pacman -Syy
 }
 
@@ -19,7 +20,7 @@ disk_setup(){
 
     #--------------------------------Disk Partition----------------------------------------
     echo -e "g\nw" | fdisk $disk
-    echo -e "g\nn\n\n\n+512M\nt\n1\nn\n\n\n+100G\nt\n\n23\nn\n\n\n\nt\n\n42\nw" | fdisk $disk
+    echo -e "g\nn\n\n\n+512M\nt\n1\nn\n\n\n+200G\nt\n\n23\nn\n\n\n\nt\n\n42\nw" | fdisk $disk
     if [[ $disk == *"nvme"* ]]; then
         part_prefix="${disk}p"
     else
@@ -57,7 +58,7 @@ disk_setup(){
     mount --mkdir $boot_partition /mnt/efi
 
     #---------------------------------- Swap Creation----------------------------------------
-    btrfs filesystem mkswapfile --size 10g --uuid clear /mnt/swap/swapfile
+    btrfs filesystem mkswapfile --size 20g --uuid clear /mnt/swap/swapfile
     swapon /mnt/swap/swapfile
 }
 
@@ -72,6 +73,7 @@ install_packages(){
     pacstrap -K /mnt base-devel
     pacstrap -K /mnt networkmanager
     pacstrap -K /mnt efibootmgr
+    pacstrap -K /mnt systemd-ukify
 }
 
 configure_system(){
@@ -100,8 +102,10 @@ configure_system(){
     echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /mnt/etc/sudoers
 
     #Making system bootable using UKI
-    echo -e "rootflags=subvol=@root rw" > /mnt/etc/kernel/cmdline
+    echo -e "rootflags=subvol=@root rw systemd.show_status=auto" > /mnt/etc/kernel/cmdline
     echo -e 'ALL_kver="/boot/vmlinuz-linux"\nPRESETS=("default")\ndefault_uki="/efi/EFI/Linux/arch-linux.efi"' > /mnt/etc/mkinitcpio.d/linux.preset
+    arch-chroot /mnt ukify genkey --pcr-private-key=/etc/systemd/tpm2-pcr-private-key-initrd.pem --pcr-public-key=/etc/systemd/tpm2-pcr-public-key-initrd.pem
+    echo -e "[UKI]\nSignKernel=false\nSignInitrdPCRs=yes\n\n[PCRSignature:initrd]\nPhases=enter-initrd\nPCRPrivateKey=/etc/systemd/tpm2-pcr-private-key-initrd.pem\nPCRPublicKey=/etc/systemd/tpm2-pcr-public-key-initrd.pem" > /mnt/etc/kernel/uki.conf
 
     #Editing mkinitcpio.conf for btrfs support and genrating EFI file for UKI
     echo -e "MODULES=(btrfs)\nBINARIES=()\nFILES=()\nHOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt btrfs filesystems fsck)" > /mnt/etc/mkinitcpio.conf
