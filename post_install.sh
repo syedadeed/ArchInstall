@@ -1,7 +1,9 @@
 #!/bin/bash
+set -euo pipefail
 
 configure_wifi ()
 {
+    rfkill unblock all
     sudo systemctl enable --now NetworkManager && sleep 3
     sudo nmcli device wifi list && sleep 5
     echo "Enter wifi name: "
@@ -61,10 +63,10 @@ gui_setup ()
 {
     sudo pacman -S --noconfirm uwsm
     sudo pacman -S --noconfirm hyprland
-    sudo pacman -S --noconfirm xdg-desktop-portal-hyprland
+    sudo pacman -S --noconfirm xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
     sudo pacman -S --noconfirm hyprpolkitagent
     systemctl --user enable hyprpolkitagent.service
-    sudo pacman -S --noconfirm qt5-wayland qt6-wayland
+    sudo pacman -S --noconfirm qt5-wayland qt6-wayland qt5ct qt6ct
     sudo pacman -S --noconfirm grim
     sudo pacman -S --noconfirm slurp
     sudo pacman -S --noconfirm hyprpicker
@@ -72,6 +74,7 @@ gui_setup ()
     sudo pacman -S --noconfirm wtype
     sudo pacman -S --noconfirm brightnessctl
     sudo pacman -S --noconfirm playerctl
+    sudo pacman -S --noconfirm libnotify mako
     paru -S --noconfirm xremap-hypr-bin
     sudo gpasswd -a $USER input
     echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess", MODE:="0660", OPTIONS+="static_node=uinput"' | sudo tee /etc/udev/rules.d/99-input.rules
@@ -79,14 +82,19 @@ gui_setup ()
 
 cli_tools_installation ()
 {
-    sudo pacman -S --noconfirm bash-completion btop tree jq
+    sudo pacman -S --noconfirm bash-completion btop rocm-smi-lib tree jq sqlc
     sudo pacman -S --noconfirm yazi
+    sudo pacman -S --noconfirm openssh
+    sudo pacman -S --noconfirm tpm2-tools
+    sudo pacman -S --noconfirm gamescope
     sudo pacman -S --noconfirm man-db man-pages
     sudo pacman -S --noconfirm certbot
     sudo pacman -S --noconfirm git github-cli jujutsu
-    sudo pacman -S --noconfirm neovim zip unzip
+    sudo pacman -S --noconfirm neovim tree-sitter-cli zip unzip
     sudo pacman -S --noconfirm opencode
     sudo pacman -S --noconfirm npm
+    sudo pacman -S --noconfirm rustup
+    rustup toolchain install stable
     sudo pacman -S --noconfirm go
     sudo pacman -S --noconfirm gradle maven
     sudo pacman -S --noconfirm nasm emscripten
@@ -101,11 +109,10 @@ cli_tools_installation ()
 
 driver_installation ()
 {
-    sudo pacman -S --noconfirm intel-ucode
-    sudo pacman -S --noconfirm intel-media-driver
-    sudo pacman -S --noconfirm libva-intel-driver
-    sudo pacman -S --noconfirm vulkan-intel
+    sudo pacman -S --noconfirm amd-ucode
     sudo pacman -S --noconfirm vulkan-radeon
+    sudo pacman -S --noconfirm nvidia-open nvidia-prime
+    sudo systemctl enable nvidia-powerd.service
 }
 
 gui_apps_installation ()
@@ -113,6 +120,7 @@ gui_apps_installation ()
     sudo pacman -S --noconfirm kitty
     sudo pacman -S --noconfirm mpv
     sudo pacman -S --noconfirm brave-bin
+    sudo pacman -S --noconfirm google-chrome
     # paru -S --noconfirm beekeeper-studio-bin
     # echo -e "--ozone-platform-hint=auto\n--enable-features=UseOzonePlatform" > ~/.config/bks-flags.conf
     # mkdir -p ~/.config/beekeeper-studio
@@ -124,6 +132,7 @@ gui_apps_installation ()
 
 virtualization_setup ()
 {
+    mkdir -p ~/.config/libvirt && echo 'uri_default = "qemu:///system"' > ~/.config/libvirt/libvirt.conf
     sudo pacman -S --noconfirm qemu-full
     sudo usermod -aG kvm $USER
     sudo pacman -S --noconfirm virt-manager
@@ -187,4 +196,4 @@ disk_maintenance
 hibernate_setup
 #vpn_setup
 
-#Bibata cursor theme
+#Put Bibata cursor theme in /usr/share/icons
