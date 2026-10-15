@@ -121,6 +121,7 @@ gui_apps_installation ()
     sudo pacman -S --noconfirm mpv
     sudo pacman -S --noconfirm brave-bin
     sudo pacman -S --noconfirm google-chrome
+    sudo pacman -S obs-studio obs-studio-plugin-browser obs-vkcapture-git v4l2loopback-dkms v4l2loopback-utils
     # paru -S --noconfirm beekeeper-studio-bin
     # echo -e "--ozone-platform-hint=auto\n--enable-features=UseOzonePlatform" > ~/.config/bks-flags.conf
     # mkdir -p ~/.config/beekeeper-studio
