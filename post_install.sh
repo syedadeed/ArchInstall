@@ -100,7 +100,7 @@ cli_tools_installation ()
     sudo pacman -S --noconfirm nasm emscripten
     sudo pacman -S --noconfirm uv tk check-jsonschema
     sudo pacman -S --noconfirm gdb meson cmake clang
-    sudo pacman -S --noconfirm android-tools scrcpy
+    sudo pacman -S --noconfirm android-tools
     sudo pacman -S --noconfirm docker docker-buildx docker-compose
     sudo systemctl enable --now docker.socket
     sudo usermod -aG docker $USER
