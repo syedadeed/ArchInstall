@@ -84,7 +84,6 @@ cli_tools_installation ()
 {
     sudo pacman -S --noconfirm bash-completion btop rocm-smi-lib tree jq sqlc
     sudo pacman -S --noconfirm yazi
-    sudo pacman -S --noconfirm aria2
     sudo pacman -S --noconfirm openssh
     sudo pacman -S --noconfirm tpm2-tools
     sudo pacman -S --noconfirm gamescope
