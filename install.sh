@@ -104,8 +104,8 @@ configure_system(){
     #Making system bootable using UKI
     echo -e "rootflags=subvol=@root rw systemd.show_status=auto" > /mnt/etc/kernel/cmdline
     echo -e 'ALL_kver="/boot/vmlinuz-linux"\nPRESETS=("default")\ndefault_uki="/efi/EFI/Linux/arch-linux.efi"' > /mnt/etc/mkinitcpio.d/linux.preset
-    arch-chroot /mnt ukify genkey --pcr-private-key=/etc/systemd/tpm2-pcr-private-key-initrd.pem --pcr-public-key=/etc/systemd/tpm2-pcr-public-key-initrd.pem
-    echo -e "[UKI]\nSignKernel=false\nSignInitrdPCRs=yes\n\n[PCRSignature:initrd]\nPhases=enter-initrd\nPCRPrivateKey=/etc/systemd/tpm2-pcr-private-key-initrd.pem\nPCRPublicKey=/etc/systemd/tpm2-pcr-public-key-initrd.pem" > /mnt/etc/kernel/uki.conf
+    arch-chroot /mnt ukify genkey --pcr-private-key=/etc/systemd/tpm2-pcr-private-key.pem --pcr-public-key=/etc/systemd/tpm2-pcr-public-key.pem
+    echo -e "[UKI]\nSignKernel=false\n\n[PCRSignature:system]\nPCRPrivateKey=/etc/systemd/tpm2-pcr-private-key.pem\nPCRPublicKey=/etc/systemd/tpm2-pcr-public-key.pem" > /mnt/etc/kernel/uki.conf
 
     #Editing mkinitcpio.conf for btrfs support and genrating EFI file for UKI
     echo -e "MODULES=(btrfs)\nBINARIES=()\nFILES=()\nHOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt btrfs filesystems fsck)" > /mnt/etc/mkinitcpio.conf
