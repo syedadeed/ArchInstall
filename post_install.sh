@@ -66,9 +66,6 @@ gui_setup ()
     sudo pacman -S --noconfirm xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
     sudo pacman -S --noconfirm hyprpolkitagent
     systemctl --user enable hyprpolkitagent.service
-    sudo pacman -S --noconfirm oo7
-    mkdir -p ${XDG_CONFIG_HOME:-~/.config}/credstore.encrypted
-    systemd-ask-password -n | systemd-creds encrypt --user --name=oo7.keyring-encryption-password - ${XDG_CONFIG_HOME:-~/.config}/credstore.encrypted/oo7.keyring-encryption-password
     sudo pacman -S --noconfirm qt5-wayland qt6-wayland qt5ct qt6ct
     sudo pacman -S --noconfirm grim
     sudo pacman -S --noconfirm slurp
